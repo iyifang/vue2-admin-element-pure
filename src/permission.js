@@ -1,12 +1,3 @@
-/*
- * @Description: 
- * @Version: 2.0
- * @Autor: yifang
- * @Date: 2022-06-18 10:34:09
- * @LastEditors: yifang
- * @LastEditTime: 2022-06-18 17:37:03
- * @Author: laptop-fpejg53f
- */
 import router from "./router"
 import store from "./store"
 import { Message } from 'element-ui'

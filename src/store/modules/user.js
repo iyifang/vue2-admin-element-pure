@@ -1,12 +1,3 @@
-/*
- * @Description: 
- * @Version: 2.0
- * @Autor: yifang
- * @Date: 2022-06-18 11:08:53
- * @LastEditors: yifang
- * @LastEditTime: 2022-06-18 17:14:45
- * @Author: laptop-fpejg53f
- */
 import { getUserInfo, login } from '@/api/user'
 import { getToken, removeToken, setToken } from '@/utils/auth'
 import { Message } from 'element-ui'
