@@ -5,6 +5,9 @@ import store from './store'
 import './plugins/element.js'
 import "element-ui/lib/theme-chalk/index.css" //element样式文件必须引入
 
+import '@/icons' 
+import '@/permission'
+
 Vue.config.productionTip = false
 
 new Vue({

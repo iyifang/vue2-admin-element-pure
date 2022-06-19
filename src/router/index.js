@@ -1,20 +1,38 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import Layout from '@/layout'
 
 Vue.use(VueRouter)
 
-const routes = [
+export const constantRoutes = [
   {
     path: '/login',
-    name: 'Login',
-    component: () => import(/* webpackChunkName: "about" */ '../views/login')
+    component: () => import('@/views/login/index'),
+    hidden: true
+  },
+  {
+    path: '/',
+    component: Layout,
+    redirect: '/dashboard',
+    children: [{
+      path: 'dashboard',
+      name: 'Dashboard',
+      component: () => import('@/views/dashboard/index'),
+      meta: { title: 'Dashboard', icon: 'el-icon-s-help' }
+    }]
   }
 ]
 
-const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes
+const createRouter = () => new VueRouter({
+  scrollBehavior: () => ({ y: 0 }),
+  routes: constantRoutes
 })
+
+const router = createRouter()
+
+export function resetRouter () {
+  const newRouter = createRouter()
+  router.matcher = newRouter.matcher // 重置路由器
+}
 
 export default router

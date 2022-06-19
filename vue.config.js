@@ -4,7 +4,7 @@
  * @Autor: yifang
  * @Date: 2022-06-17 23:45:30
  * @LastEditors: yifang
- * @LastEditTime: 2022-06-18 00:02:16
+ * @LastEditTime: 2022-06-19 13:41:49
  * @Author: laptop-fpejg53f
  */
 const path = require('path')
@@ -54,6 +54,23 @@ module.exports = {
 
     // when there are many pages, it will cause too many meaningless requests
     config.plugins.delete('prefetch')
+
+    // 配置svg-sprite-loader
+    config.module
+      .rule('svg')
+      .exclude.add(resolve('src/icons'))       //注意svg的存储地址
+      .end()
+    config.module
+      .rule('icons')
+      .test(/\.svg$/)
+      .include.add(resolve('src/icons'))        //注意svg的存储地址
+      .end()
+      .use('svg-sprite-loader')
+      .loader('svg-sprite-loader')
+      .options({
+        symbolId: 'icon-[name]'
+      })
+      .end()
 
     config
       .when(process.env.NODE_ENV !== 'development',
