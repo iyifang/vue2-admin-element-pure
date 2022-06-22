@@ -1,12 +1,12 @@
-import { getUserInfo, login } from '@/api/user'
+import { getUserInfo, login, logout } from '@/api/user'
 import { getToken, removeToken, setToken } from '@/utils/auth'
-import { Message } from 'element-ui'
+import { resetRouter } from "@/router"
 
 const getDefaultState = () => {
   return {
     token: getToken(),
     name: '',
-    acatar: ''
+    avatar: ''
   }
 }
 
@@ -20,6 +20,14 @@ const mutations = {
 
   SET_TOKEN: (state, token) => {
     state.token = token
+  },
+
+  SET_NAME: (state, name) => {
+    state.name = name
+  },
+
+  SET_AVATAR: (state, avatar) => {
+    state.avatar = avatar
   }
 }
 
@@ -40,8 +48,31 @@ const actions = {
 
   getInfo ({ commit, state }) {
     return new Promise((resolve, reject) => {
-      getUserInfo().then(res => {
-        resolve(res)
+      getUserInfo(state.token).then(res => {
+        const { data } = res
+        if (!data.info)
+        {
+          return reject('验证失败，请重新登录。')
+        }
+        const { name, avatar } = data.info
+        commit('SET_NAME', name)
+        commit('SET_AVATAR', avatar)
+        resolve(data)
+      }).catch(error => {
+        reject(error)
+      })
+    })
+  },
+
+  logout ({ commit, state }) {
+    return new Promise((resolve, reject) => {
+      logout(state.token).then(() => {
+        removeToken() // must remove  token  first
+        resetRouter()
+        commit('RESET_STATE')
+        resolve()
+      }).catch(error => {
+        reject(error)
       })
     })
   },

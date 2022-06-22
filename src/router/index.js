@@ -18,8 +18,20 @@ export const constantRoutes = [
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: 'Dashboard', icon: 'el-icon-s-help' }
+      meta: { title: 'Dashboard', icon: 'dashboard' }
     }]
+  },
+  {
+    path: '/icon',
+    redirect: 'icon',
+    component: Layout,
+    children: [
+      {
+        path: '/icon',
+        component: () => import('@/views/icon/index'),
+        meta: { title: 'Icon', icon: 'star' }
+      }
+    ],
   }
 ]
 

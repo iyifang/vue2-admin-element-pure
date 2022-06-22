@@ -24,3 +24,11 @@ export function getUserInfo (token) {
     data: { token }
   })
 }
+
+export function logout (token) {
+  return request({
+    url: '/logout',
+    method: 'post',
+    data: { token }
+  })
+}
