@@ -6,7 +6,10 @@
     <breadcrumb class="breadcrumb-container" />
 
     <div class="right-menu">
-      <el-dropdown class="avatar-container"
+      <div class="right-menu-item">
+        <svg-icon icon-class="fullscreen" />
+      </div>
+      <el-dropdown class="avatar-container right-menu-item"
                    trigger="click">
         <div class="avatar-wrapper">
           <!-- <img :src="avatar+'?imageView2/1/w/80/h/80'"

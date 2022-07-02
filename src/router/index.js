@@ -22,6 +22,24 @@ export const constantRoutes = [
     }]
   },
   {
+    path: '/echarts',
+    redirect: 'echarts/lineChart',
+    component: Layout,
+    meta: { title: 'Echarts', icon: 'chart' },
+    children: [
+      {
+        path: '/lineChart',
+        component: () => import('@/views/echarts/lineChart/index'),
+        meta: { title: 'lineChart' }
+      },
+      {
+        path: '/barChart',
+        component: () => import('@/views/echarts/barChart/index'),
+        meta: { title: 'barChart' }
+      }
+    ],
+  },
+  {
     path: '/icon',
     redirect: 'icon',
     component: Layout,
