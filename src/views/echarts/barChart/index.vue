@@ -1,44 +1,54 @@
 <template>
   <div class="bar-chart">
-    <bar-echarts />
+    <div class="chart-wrapper">
+      <div class="item"
+           v-if="evaluationData[nameList['测报考核']]">
+        <bar-echarts :chartData="evaluationData[nameList['测报考核']]"
+                     :title="nameList['测报考核']" />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import BarEcharts from '../components/BarEcharts.vue'
+import { evaluation } from "@/api/echarts";
 export default {
   components: {
     BarEcharts,
   },
   data () {
     return {
-      style: {
-        height: ''
+      evaluationData: {},
+      nameList: {
+        测报考核: "assessment",
+        指导宣传: "propaganda",
+        学习培训: "train",
+        其他任务: "task"
       },
-      title: '柱状图',
-      barName: ['文档数', '任务数'],
-      barX: ['2019/03/01', '2019/03/02', '2019/03/03', '2019/03/04', '2019/03/05', '2019/03/06', '2019/03/07'],
-      info: [
-        {
-          name: '文档数',
-          type: 'bar',
-          stack: '总量',
-          data: [120, 132, 101, 134, 90, 230, 210]
-        },
-        {
-          name: '任务数',
-          type: 'bar',
-          stack: '总量',
-          data: [220, 182, 191, 234, 290, 330, 310]
-        }
-      ],
     }
   },
   created () {
-    this.style.height = 300 + 'px'
+    this.getEvaluation()
+  },
+  methods: {
+    async getEvaluation () {
+      const { data } = await evaluation()
+      this.evaluationData = data
+    }
   }
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+.bar-chart {
+  .chart-wrapper {
+    width: 100%;
+    .item {
+      width: 100%;
+      height: 300px;
+      background-color: #223068;
+    }
+  }
+}
 </style>
