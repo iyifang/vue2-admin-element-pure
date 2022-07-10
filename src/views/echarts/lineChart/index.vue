@@ -6,6 +6,13 @@
             :opinionData="info"
             :x="barX">
     </m-line>
+
+    <m-line :echartStyle="style"
+            :titleText="title"
+            :opinion="barName"
+            :opinionData="info"
+            :x="barX">
+    </m-line>
   </div>
 </template>
 
@@ -46,5 +53,9 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+.line-chart {
+  display: flex;
+  flex-direction: column;
+}
 </style>
