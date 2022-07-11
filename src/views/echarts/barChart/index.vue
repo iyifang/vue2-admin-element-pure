@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import BarEcharts from '../components/BarEcharts.vue'
+import BarEcharts from '../components/Bar.vue'
 import { evaluation } from "@/api/echarts";
 import {
   forecastRoster,

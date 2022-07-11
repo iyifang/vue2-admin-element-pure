@@ -36,6 +36,11 @@ export const constantRoutes = [
         path: '/barChart',
         component: () => import('@/views/echarts/barChart/index'),
         meta: { title: 'barChart' }
+      },
+      {
+        path: '/radarChart',
+        component: () => import('@/views/echarts/radarChart/index'),
+        meta: { title: 'radarChart' }
       }
     ],
   },
