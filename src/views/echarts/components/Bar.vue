@@ -1,8 +1,6 @@
 <template>
   <div>
-    <div id="myChart"
-         ref="myChart"
-         v-resize="resize"></div>
+    <div id="myChart" ref="myChart" v-resize="resize"></div>
   </div>
 </template>
 
@@ -13,13 +11,13 @@ export default {
     echartStyle: {
       // 样式
       type: Object,
-      default () {
-        return {}
-      }
+      default() {
+        return {};
+      },
     },
     chartData: {
       type: Object,
-      default () {
+      default() {
         return {};
       },
     },
@@ -35,9 +33,9 @@ export default {
     forecastName: {
       tyle: Object,
       default: {},
-    }
+    },
   },
-  data () {
+  data() {
     return {
       nameList: {
         assessment: "测报考核",
@@ -47,13 +45,12 @@ export default {
       },
     };
   },
-  mounted () {
-    console.log(this.echartStyle);
+  mounted() {
     this.init();
   },
   methods: {
-    init () {
-      console.log(this.title);
+    init() {
+      let bgStyle = this.echartStyle;
       let { cycle } = this.chartData;
       let seriesData = []; // 每个周期数据
       let xData = []; // X轴数据
@@ -66,7 +63,7 @@ export default {
         seriesData.push({
           name: this.forecastName[item],
           type: "bar",
-          barWidth: 25, // 柱子宽度
+          barWidth: "8%", // 柱子宽度
           data: yData[index],
           zlevel: 11,
           barGap: "100%", // 不同系列的柱间距离
@@ -81,10 +78,11 @@ export default {
                 formatter: `{c} \n\n {a}`,
                 show: true,
                 position: "top",
-                rotate: this.title == 'task' ? 45 : 0,
+                rotate: this.title == "task" ? 65 : 0, // 最后一个图表文字倾斜
                 textStyle: {
                   fontSize: "8",
                   color: "#fff",
+                  align: "left",
                 },
               },
             },
@@ -114,12 +112,12 @@ export default {
           borderColor: "#68d786",
           borderType: "solid",
           shadowColor: "rgba(187, 255, 0, 1)",
-          color: this.echartStyle.hoveColor
-          /*  normal: {
-           } */
+          color: this.echartStyle.hoveColor,
+          /* normal: {
+            color: "#00FF00",
+          }, */
         },
       });
-
 
       let myChart = this.$echarts.init(this.$refs.myChart);
       // 指定图表的配置项和数据
@@ -141,9 +139,45 @@ export default {
               color: "#0000001a",
             },
             z: 0,
-            formatter: function (params) {
-              console.log(params);
-            },
+          },
+          textStyle: {
+            fontSize: 12,
+          },
+          backgroundColor: bgStyle.hoveColor,
+          formatter: function (params) {
+            // console.log(params[params.length-1]);
+            let str = `<div style=
+                        "background-color: ${bgStyle.hoveColor};
+                        padding: 0px 15px;
+                        width: 100%;
+                        height: 100%;
+                        text-align: center;
+                        color: white;
+                        border-radius: 5px;"
+                        border: none;
+                        position: relative;
+                        >
+                          <p>${params[params.length - 1].data}</p>
+                          <p>总分</p>
+                          <span style="
+                            display: block;
+                            position:absolute;
+                            left:45%;
+                            top: 90%;
+                            width:10px;
+                            height:10px;
+                            background-color: ${bgStyle.hoveColor};
+                            transform:rotate(45deg);
+                            "
+                            >
+                          </span>
+                        </div>`;
+
+            return str;
+          },
+          position: function (point, params, dom, rect, size) {
+            // 固定在顶部
+            return [point[0], "10%"];
           },
         },
         // 图例组件
@@ -171,7 +205,7 @@ export default {
             endValue: 4,
             zoomLock: false,
             // disabled: true
-          }
+          },
         ],
         xAxis: [
           {
@@ -229,12 +263,11 @@ export default {
     },
 
     // 处理返回分类数据
-    recursionForecast (data) {
+    recursionForecast(data) {
       let arr = [[], [], [], [], []];
       data.forEach((item) => {
         item.forEach((val, index) => {
-          if (this.forecastRoster.includes(val.name))
-          {
+          if (this.forecastRoster.includes(val.name)) {
             arr[index].push(val.number);
           }
         });
@@ -242,7 +275,7 @@ export default {
       return arr;
     },
     // 处理返回每个周期总数seriesData数组
-    sumLineData (data) {
+    sumLineData(data) {
       let arr = [];
       data.forEach((item) => {
         let s = 0;
@@ -255,7 +288,7 @@ export default {
     },
 
     // 自适应图表
-    resize () {
+    resize() {
       this.myChart = this.$echarts.init(this.$refs.myChart);
       this.myChart.resize();
     },
@@ -263,7 +296,7 @@ export default {
   //监控data中的数据变化
   watch: {
     chartData: {
-      handler (nvl, ovl) {
+      handler(nvl, ovl) {
         // console.log(nvl);
         this.init();
       },
@@ -277,5 +310,12 @@ export default {
 #myChart {
   height: 300px;
   width: 100%;
+}
+.total-score {
+  background-color: #78ff8e;
+  padding: 10px 15px;
+  text-align: center;
+  color: white;
+  border-radius: 5px;
 }
 </style>
