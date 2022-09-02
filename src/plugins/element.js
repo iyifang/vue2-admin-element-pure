@@ -12,7 +12,8 @@ import {
   BreadcrumbItem,
   Dropdown,
   DropdownItem,
-  DropdownMenu
+  DropdownMenu,
+  Link
 } from 'element-ui'
 
 Vue.use(Button)
@@ -28,3 +29,4 @@ Vue.use(BreadcrumbItem)
 Vue.use(Dropdown)
 Vue.use(DropdownItem)
 Vue.use(DropdownMenu)
+Vue.use(Link)

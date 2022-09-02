@@ -55,6 +55,24 @@ export const constantRoutes = [
         meta: { title: 'Icon', icon: 'star' }
       }
     ],
+  },
+  {
+    path: '/function',
+    redirect: 'function/promise',
+    component: Layout,
+    meta: { title: 'Function', icon: 'bulb' },
+    children:[
+      {
+        path: '/promise',
+        component:()=>import('@/views/function/promise/index'),
+        meta: { title: 'Promise', icon: 'bulb' }
+      },
+      {
+        path: '/leetCode',
+        component:()=>import('@/views/function/leetCode/index'),
+        meta: { title: 'LeetCode', icon: 'bulb' }
+      }
+    ]
   }
 ]
 
