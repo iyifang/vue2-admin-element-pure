@@ -55,6 +55,18 @@ export const constantRoutes = [
         meta: { title: 'Icon', icon: 'star' }
       }
     ],
+  },
+  {
+    path: "/leetCode",
+    redirect: 'leetCode',
+    component: Layout,
+    children: [
+      {
+        path: '/leetCode',
+        component: () => import('@/views/leetCode/index'),
+        meta: { title: 'LeetCode', icon: 'idea' }
+      }
+    ]
   }
 ]
 

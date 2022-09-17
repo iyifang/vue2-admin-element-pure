@@ -7,6 +7,9 @@ import "element-ui/lib/theme-chalk/index.css" //element样式文件必须引入
 
 import "@/styles/index.scss" // 全局样式
 
+import { MessageBox } from 'element-ui'
+Vue.prototype.$confirm = MessageBox.confirm;
+
 // 引入echarts
 import echarts from 'echarts'
 Vue.prototype.$echarts = echarts
