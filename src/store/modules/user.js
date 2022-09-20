@@ -6,7 +6,8 @@ const getDefaultState = () => {
   return {
     token: getToken(),
     name: '',
-    avatar: ''
+    avatar: '',
+    userInfo: {}
   }
 }
 
@@ -28,11 +29,15 @@ const mutations = {
 
   SET_AVATAR: (state, avatar) => {
     state.avatar = avatar
+  },
+
+  SET_USERINFO: (state, data) => {
+    state.data = data
   }
 }
 
 const actions = {
-  login ({ commit }, userInfo) {
+  login({ commit }, userInfo) {
     const { username, password } = userInfo
     return new Promise((reverse, reject) => {
       login({ username: username.trim(), password: password.trim() }).then(res => {
@@ -46,17 +51,17 @@ const actions = {
     })
   },
 
-  getInfo ({ commit, state }) {
+  getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
       getUserInfo(state.token).then(res => {
         const { data } = res
-        if (!data.info)
-        {
+        if (!data) {
           return reject('验证失败，请重新登录。')
         }
-        const { name, avatar } = data.info
+        const { name, avatar } = data
         commit('SET_NAME', name)
         commit('SET_AVATAR', avatar)
+        commit('SET_USERINFO', data)
         resolve(data)
       }).catch(error => {
         reject(error)
@@ -64,7 +69,7 @@ const actions = {
     })
   },
 
-  logout ({ commit, state }) {
+  logout({ commit, state }) {
     return new Promise((resolve, reject) => {
       logout(state.token).then(() => {
         removeToken() // must remove  token  first
@@ -77,7 +82,7 @@ const actions = {
     })
   },
 
-  resetToken ({ commit }) {
+  resetToken({ commit }) {
     return new Promise(resolve => {
       removeToken()
       commit('RESET_STATE')

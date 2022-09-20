@@ -17,29 +17,21 @@ router.beforeEach(async (to, form, next) => {
   document.title = getPageTitle(to.meta.title)
 
   const hasToken = getToken()
-  if (hasToken)
-  {
-    if (to.path === '/login')
-    {
+  if (hasToken) {
+    if (to.path === '/login') {
       next({ path: '/' })
       NProgress.done()
-    } else
-    {
+    } else {
       const hasGetUserInfo = store.getters.name
-      if (hasGetUserInfo)
-      {
+      if (hasGetUserInfo) {
         next()
-      } else
-      {
-        try
-        {
+      } else {
+        try {
           // 获取最新用户信息
           await store.dispatch('user/getInfo')
           next()
-        } catch (error)
-        {
+        } catch (error) {
           // 清除令牌跳转登录页
-          // 
           await store.dispatch('user/resetToken')
           Message.error(error || 'Has Error')
           next(`/login?redirect=${to.path}`)
@@ -47,15 +39,12 @@ router.beforeEach(async (to, form, next) => {
         }
       }
     }
-  } else
-  {
+  } else {
     // 没有令牌
-    if (whiteList.indexOf(to.path) !== -1)
-    {
+    if (whiteList.indexOf(to.path) !== -1) {
       // 在白名单内
       next()
-    } else
-    {
+    } else {
       // 都没有就跳转到登录页
       next(`login?redirect=${to.path}`)
       NProgress.done()

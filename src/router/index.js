@@ -61,18 +61,73 @@ export const constantRoutes = [
     redirect: 'function/promise',
     component: Layout,
     meta: { title: 'Function', icon: 'bulb' },
-    children:[
+    children: [
       {
         path: '/promise',
-        component:()=>import('@/views/function/promise/index'),
+        component: () => import('@/views/function/promise/index'),
         meta: { title: 'Promise', icon: 'bulb' }
       },
       {
         path: '/leetCode',
-        component:()=>import('@/views/function/leetCode/index'),
+        component: () => import('@/views/function/leetCode/index'),
         meta: { title: 'LeetCode', icon: 'bulb' }
       }
     ]
+  },
+  {
+    path: '/toy',
+    redirect: 'toy',
+    component: Layout,
+    children: [{
+      path: '/toy',
+      component: () => import('@/views/toy'),
+      meta: { title: 'Toy', icon: 'toy' }
+    }]
+  },
+  {
+    path: '/css',
+    redirect: 'css/holyGrailLayout',
+    component: Layout,
+    meta: { title: 'Css', icon: 'layout' },
+    children: [
+      {
+        path: '/holyGrailLayout',
+        component: () => import('@/views/css/holyGrailLayout.vue'),
+        meta: { title: 'HolyGrailLayout', icon: 'layout' }
+      },
+      {
+        path: '/flex',
+        component: () => import('@/views/css/flex.vue'),
+        meta: { title: 'Flex', icon: 'layout' }
+      },
+      {
+        path: '/loading',
+        component: () => import('@/views/css/loading.vue'),
+        meta: { title: 'Loading', icon: 'layout' }
+      }
+    ]
+  },
+  {
+    path: '/plugIn',
+    redirect: 'plugIn/draggable',
+    component: Layout,
+    meta: { title: 'plugIn', icon: 'layout' },
+    children: [{
+      path: '/draggable',
+      component: () => import('@/views/plugIn/draggable'),
+      meta: { title: 'Draggable', icon: 'layout' }
+    }]
+  },
+  {
+    path: '/textArea',
+    redirect: 'textArea/Editor',
+    component: Layout,
+    meta: { title: 'textArea', icon: 'layout' },
+    children: [{
+      path: '/Editor',
+      component: () => import('@/views/textArea/Editor'),
+      meta: { title: 'Editor', icon: 'layout' }
+    }]
   }
 ]
 
@@ -83,7 +138,7 @@ const createRouter = () => new VueRouter({
 
 const router = createRouter()
 
-export function resetRouter () {
+export function resetRouter() {
   const newRouter = createRouter()
   router.matcher = newRouter.matcher // 重置路由器
 }
