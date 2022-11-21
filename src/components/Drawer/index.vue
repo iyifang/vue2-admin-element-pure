@@ -1,7 +1,8 @@
 <template>
   <div class="drawer-container">
-    <el-drawer title="我是标题"
-               :visible.sync="drawer"
+    <el-drawer :title="title"
+               :size="size"
+               :visible.sync="show"
                :direction="direction"
                :before-close="handleClose">
       <span>
@@ -17,28 +18,28 @@ export default {
   props: {
     show: {
       type: Boolean,
-      default: false  
+      default: false
+    },
+    title: {
+      type: String,
+      default: '源码'
+    },
+    direction: {
+      type: String,
+      default: 'rtl' // 可选值rtl / ltr / ttb / btt
+    },
+    size: {
+      type: String,
+      default: '50%'
     }
   },
   data () {
     return {
-      direction: 'rtl',
-      drawer:false
     }
   },
   methods: {
-    handleClose (done) {
-      this.$confirm('确认关闭？')
-        .then(_ => {
-          
-          done();
-        })
-        .catch(_ => { });
-    }
-  },
-  watch:{
-    show:(Nval,Oval)=>{
-      this.drawer = Nval
+    handleClose () {
+      this.$emit('closeDrawer')
     }
   }
 }

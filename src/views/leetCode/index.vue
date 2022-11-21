@@ -16,7 +16,8 @@
                 你可以假设每种输入只会对应一个答案。但是，数组中同一个元素在答案里不能重复出现。
                 你可以按任意顺序返回答案。</p>
               <br>
-              <p style="font-size:13px">示例
+              <p style="font-size:13px">
+                示例
                 输入:nums=[2,7,11,15],target=9
                 输出：[0,1]
                 解释：因为nums[0]+nums[1]==9,返回 [0,1]</p>
@@ -77,8 +78,11 @@
         </div>
       </el-col>
     </el-row>
-    <drawer :show="show">
-      <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Harum, delectus modi. Dolores eius animi dolorum accusamus eveniet, suscipit expedita! Officia accusamus laudantium eum voluptatem suscipit est pariatur beatae recusandae temporibus?</p>
+    <drawer :show="show"
+            @closeDrawer="closeDrawer">
+      <div class="code">
+        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Harum, delectus modi. Dolores eius animi dolorum accusamus eveniet, suscipit expedita! Officia accusamus laudantium eum voluptatem suscipit est pariatur beatae recusandae temporibus?</p>
+      </div>
     </drawer>
   </div>
 </template>
@@ -91,6 +95,11 @@ export default {
     return {
       show: false
     }
+  },
+  methods: {
+    closeDrawer () {
+      this.show = false
+    }
   }
 }
 </script>
@@ -98,6 +107,16 @@ export default {
 <style lang="scss" scoped>
 .idea-container {
   padding: 10px;
+
+  .code{
+    padding: 10px;
+    width: 100%;
+    height: 100%;
+    color: white;
+    background: rgb(50, 50, 50);
+  }
+
+
   .el-row {
     margin-bottom: 20px;
     &:last-child {

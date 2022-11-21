@@ -63,8 +63,26 @@ export const constantRoutes = [
     children: [
       {
         path: '/leetCode',
-        component: () => import('@/views/leetCode/index'),
+        component: () => import('@/views/leetCode/index.vue'),
         meta: { title: 'LeetCode', icon: 'idea' }
+      }
+    ]
+  },
+  {
+    path: "/map",
+    redirect: 'map/ArcGisMap',
+    meta: { title: 'ArcGisMap', icon: 'el-icon-location' },
+    component: Layout,
+    children: [
+      {
+        path: '/ArcGisMap',
+        component: () => import('@/views/map/ArcGisMap/index'),
+        meta: { title: 'ArcGisMap' }
+      },
+      {
+        path: '/gaodeMap',
+        component: () => import('@/views/map/gaodeMap/index'),
+        meta: { title: 'gaodeMap' }
       }
     ]
   }
