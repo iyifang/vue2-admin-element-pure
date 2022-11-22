@@ -1,7 +1,11 @@
 .DS_Store
-node_modules
 /dist
-
+node_modules/
+public/
+.deploy*/
+.deploy_git*/
+.idea
+themes/butterfly/.git
 
 # local env files
 .env.local

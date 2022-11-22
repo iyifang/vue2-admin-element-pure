@@ -1,15 +1,15 @@
 <template>
-  <div id="app">
-    <router-view />
+  <div class="arc-gis">
+    arc-gis
   </div>
 </template>
 
 <script>
-
 export default {
-  name: 'app'
+
 }
 </script>
 
 <style>
+
 </style>
